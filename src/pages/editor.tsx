@@ -45,8 +45,10 @@ const Preview = styled.div`
   width: 50vw;
 `
 
+const StorageKey = 'pages/editor:text'
+
 export const Editor: React.FC = () => {
-  const [text, setText] = useState<string>('')
+  const [text, setText] = useState<string>(localStorage.getItem(StorageKey) || '')
 
   return(
     <>
@@ -56,7 +58,9 @@ export const Editor: React.FC = () => {
       <Wrapper>
         <TextArea
           onChange={(event) => {
-            setText(event.target.value)
+            const changeText = event.target.value
+            localStorage.setItem(StorageKey, changeText)
+            setText(changeText)
           }}
           value={text}
         />
